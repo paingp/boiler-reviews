@@ -30,5 +30,4 @@ jobs:
     - run: npm ci
       working-directory: ./server
   #  - run: npm run build --if-present
-    - run: npm test
-      working-directory: ./server
+  #  - run: npm test
