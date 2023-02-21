@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import AutocompleteSearch from "./AutocompleteSearch";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+
 
 const CourseReviewForm = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
-
+    const onSubmit = async (data) => {
+        console.log(data, "data")
+    }
+    const [instructors, setInstructors] = useState([])
     console.log(watch("example")); // watch input value by passing the name of it
+    
+    useEffect(() => {
+        axios.get('https://cors-anywhere.herokuapp.com/https://boilergrades.com/api/indexes', {headers: {mode: "no-cors"}})
+        .then(response => {
+            setInstructors(response.data)
+        })
+        .catch(error => console.log(error))
+    }, [])
+    console.log(instructors)
 
     return (
         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
@@ -14,7 +28,8 @@ const CourseReviewForm = () => {
         {/*<input defaultValue="test" {...register("example")} />*/}
         
         {/* include validation with required or other standard HTML validation rules */}
-        <input {...register("instructor", { required: true })} placeholder="Instructor Name"/>
+        {/* <input {...register("instructor", { required: true })} placeholder="Instructor Name"/> */}
+        <AutocompleteSearch placeholder = "Instructor Name" options = {[]}/>
         {/* errors will return when field validation fails  */}
         {errors.exampleRequired && <span>This field is required</span>}
 
