@@ -1,12 +1,13 @@
 import { Box, Container, Grid } from "@mui/material";
 import Button from "@mui/material/Button"; 
 import { useForm } from "react-hook-form";
-import FTextField from "../form_components/FormTextField";
 import Dropdown from "../form_components/Dropdown";
 import NumberInput from "../form_components/NumberInput";
 import MultiSelect from "../form_components/MultiSelect";
 import FormRating from "../form_components/FormRating"
 import ReviewInput from "../form_components/ReviewInput";
+import { instructors } from "../Constants";
+
 
 
 const terms = ["Fall", "Spring", "Summer"];
@@ -32,7 +33,7 @@ export default function CourseReviewForm() {
                         <Grid item xs={12} md={8}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
-                                    <FTextField name="instructor" control={control} label="Instructor" required={true}/>
+                                    <MultiSelect name="instr" control={control} label="Instructors" options={instructors}/>
                                 </Grid>
                                 <Grid item xs={6} md={3}>
                                     <Dropdown name="term" control={control} label="Term" options={terms} required={true}/>
