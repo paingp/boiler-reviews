@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import CourseReviewForm from "./components/CourseReviewForm"
-import Test from "./components/Prototype"
+//import Test from "./components/Prototype"
 
 function App() {
   return (
