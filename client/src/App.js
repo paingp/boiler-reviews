@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import InstructorReviewForm from "./components/InstructorReviewForm"
 import CourseReviewForm from "./components/CourseReviewForm"
-//import Test from "./components/Prototype"
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <Router>
         <div>
           <Routes>
-            <Route path="/" element={<CourseReviewForm/>}></Route>
+            <Route path="/" element={<InstructorReviewForm/>}></Route>
           </Routes>
         </div>
       </Router>
