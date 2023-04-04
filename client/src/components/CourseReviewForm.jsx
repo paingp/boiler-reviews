@@ -2,6 +2,7 @@ import { Box, Container, Grid } from "@mui/material";
 import Button from "@mui/material/Button"; 
 import { useForm } from "react-hook-form";
 import Dropdown from "../form_components/Dropdown";
+import FormAutocomplete from "../form_components/FormAutocomplete";
 import NumberInput from "../form_components/NumberInput";
 import MultiSelect from "../form_components/MultiSelect";
 import FormRating from "../form_components/FormRating"
@@ -47,7 +48,7 @@ export default function CourseReviewForm() {
                         <Grid item xs={12} md={8}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
-                                    <MultiSelect name="instr" control={control} label="Instructor" options={instructors}/>
+                                    <FormAutocomplete name="instructor" control={control} label="Instructor" options={instructors}/>
                                 </Grid>
                                 <Grid item xs={6} md={3}>
                                     <Dropdown name="term" control={control} label="Term" options={terms} required={true}/>
@@ -59,14 +60,14 @@ export default function CourseReviewForm() {
                                     <NumberInput name="workload" control={control} label="Workload" required={true}/>
                                 </Grid>
                                 <Grid item xs={12} md={6}>
-                                    <MultiSelect name="eval" control={control} label="Evaluation" options={evalMethods}/>
+                                    <MultiSelect name="evaluation" control={control} label="Evaluation" options={evalMethods}/>
                                 </Grid>
                                 <Grid item xs={6} md={3}>
                                     <Dropdown name="grade" control={control} label="Grade" options={grades}/>
                                 </Grid>
                             </Grid>
-                            <div style={{marginTop: "25px"}}>   
-                                <ReviewInput name="review" control={control} label="Comments on the course" rows={8}/>
+                            <div style={{marginTop: "25px"}}>
+                                <ReviewInput name="review" control={control} formlabel="Comments on the course" label="Share your thoughts on the course" rows={8}/>
                             </div>
                         </Grid>
                         <Grid item xs={12} md={4}>
