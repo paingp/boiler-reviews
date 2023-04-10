@@ -16,6 +16,8 @@ import FormRating from "../form_components/FormRating"
 import ReviewInput from "../form_components/ReviewInput";
 import { courses } from "../constants";
 
+import { useNavigate } from 'react-router-dom';
+
 const terms = ["Fall", "Spring", "Summer"];
 
 const year = (new Date()).getFullYear();
@@ -63,10 +65,13 @@ const style = ["Online", "In Person", "Hybrid"]
           });
           return response.json();
       }
-  
+      
+      const navigate = useNavigate();
+
       const onSubmit = (data) => {
           console.log(data)  
           postData("http://localhost:8000/submit", data)
+          navigate("/instrreview")
       };
   
       const onInvalid = (errors) => console.error(errors);
@@ -107,7 +112,7 @@ const style = ["Online", "In Person", "Hybrid"]
                                 </Grid>
                             </Grid>
                             <div style={{marginTop: "25px"}}>   
-                                <ReviewInput name="review" control={control} label="Comments on the course" rows={8}/>
+                                <ReviewInput name="review" control={control} label="Comments on the professor" rows={8}/>
                             </div>
                         </Grid>
                         <Grid item xs={12} md={2}>
@@ -135,79 +140,6 @@ const style = ["Online", "In Person", "Hybrid"]
                 </form>
             </Box>
         </Container>
-        
-    //     <AppBar position="static" style={{ background: '#333232' }}>
-    //         <Toolbar variant="dense">
-    //             {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-    //                 <MenuIcon />
-    //             </IconButton>*/
-    //             <Typography variant="subtitle1" color="inherit" component="div" sx = {{display: 'flex', justifyContent: 'center', width: '100%'}}>
-    //                 Writing Review
-    //             </Typography> }
-    //         </Toolbar>
-    //     </AppBar>
-
-    // <Grid container spacing={3}>
-    //     <Grid xs={8}>
-    //         <Box component="form" sx={{ '& > :not(style)': { m: 4.5, width: '25ch' },}} noValidate autoComplete="off">
-    //           <TextField id="course" label="Course Number" variant="filled" />
-    //           <Dropdown name="grade" control={control} label="Grade" options={grades}/>
-    
-    //           <TextField id="recommend" select label="Recommendation" defaultValue="Recommend?" helperText="Do you recommend this professor?" variant="filled">
-    //             {rec.map((option) => (
-    //               <MenuItem key={option.value} value={option.value}>
-    //                 {option.label}
-    //               </MenuItem>
-    //             ))}
-    //           </TextField> 
-            
-    //         </Box>
-        
-
-    //         <Box sx={{ '& > :not(style)': { m: 4.5}, width: 790, maxWidth: '100%', }}>
-    //           <TextField fullWidth label="Review" id="fullWidth" multiline rows={8} variant="filled"/>
-    //         </Box>
-    //     </Grid>
-
-    //     <Box component="form" sx={{ '& > :not(style)': { m: 4.5, width: '1ch' }, }} noValidate autoComplete="off">
-    //       <Grid container rowSpacing={1}>
-    //         <Typography component="legend">Overall</Typography>
-    //           <Rating name="overall" sx={{padding: 1}} onChange={(event, newValue) => {
-    //             //setValue(newValue);
-    //         }}/>
-    //         <Typography component="legend">Teaching</Typography>
-    //           <Rating name="teaching" sx={{padding: 1}} onChange={(event, newValue) => {
-    //             //setValue(newValue);
-    //         }}/>
-    //         <Typography component="legend">Caring</Typography>
-    //           <Rating name="caring" sx={{padding: 1}} onChange={(event, newValue) => {
-    //             //setValue(newValue);
-    //         }}/>
-    //         <Typography component="legend">Interesting</Typography>
-    //           <Rating name="inspirational" sx={{padding: 1}} onChange={(event, newValue) => {
-    //             //setValue(newValue);
-    //         }}/>
-    //         <Typography component="legend">Grading</Typography>
-    //           <Rating name="Grading" sx={{padding: 1}} onChange={(event, newValue) => {
-    //             //setValue(newValue);
-    //         }}/>
-    //       </Grid>
-    //     </Box>
-
-    //     <Box>
-    //       <Grid> 
-    //         <CustomWidthTooltip title={test} placement="right-end">
-    //           <IconButton sx={{m: 3}}><QuestionMarkIcon fontSize="small"/></IconButton>
-    //         </CustomWidthTooltip>
-    //       </Grid>
-    //     </Box>
-    // </Grid>
-
-    // <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '10ch' },}} noValidate autoComplete="off">   
-    //   <ColorButton variant="contained">Submit</ColorButton>
-    // </Box>
-    
-    // </form>
-        
+          
     )
 }
