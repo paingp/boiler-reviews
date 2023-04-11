@@ -33,7 +33,7 @@ export default function CourseReviewForm() {
 
     const onSubmit = (data) => {
         console.log(data)  
-        postData("http://localhost:8000/submit", data)
+        postData("http://localhost:5000/submit", data)
     };
 
     const onInvalid = (errors) => console.error(errors);
