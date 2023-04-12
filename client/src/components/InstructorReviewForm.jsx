@@ -52,7 +52,7 @@ const rec = ["I recommend this professor for all their courses", "I recommend th
 
 const style = ["Online", "In Person", "Hybrid"]
 
-    export default function InstructorReviewForm() {
+export default function InstructorReviewForm() {
       const {handleSubmit, control} = useForm();
   
       async function postData(url = "", data = {}) {

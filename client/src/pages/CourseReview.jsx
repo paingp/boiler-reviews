@@ -1,11 +1,13 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Box, Container, Grid } from "@mui/material";
-
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+import CourseReviewForm from "../components/CourseReviewForm";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#FFD700',
@@ -14,17 +16,28 @@ const ColorButton = styled(Button)(({ theme }) => ({
     }
   }));
 
-function CourseReviewForm() {
+
+function CourseReview() {
+    const {courseId} = useParams()
+
+    const [reviews, setReviews] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:8000/course/' + courseId)
+        .then(response => response.json())
+        .then(json => setReviews(json))
+    })
+
     return (
         <Container>
             <AppBar position="static" style={{ background: '#333232' }}>
                 <Toolbar variant="dense" sx={{mx: "auto"}}>
                     <Typography variant="subtitle1" color="inherit" component="div" sx = {{display: 'flex', justifyContent: 'center', width: '100%', margin:'0'}}>
-                        ECE49595
+                        {courseId}
                     </Typography> 
                 </Toolbar>
             </AppBar>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} marginBottom={5}>
                 <Grid item xs={12} md={8}>
                     <Box sx={{width: 500, height: 85, mt:2, backgroundColor: '#FFD700'}}>
                         <Box sx={{m:1}}>
@@ -44,8 +57,16 @@ function CourseReviewForm() {
                     </Box>
                 </Grid>
             </Grid>
+            <div>
+                {reviews.map(review => {
+                    return <div> {JSON.stringify(review)} </div>
+                })}
+            </div>
+            <div>
+                <CourseReviewForm course={courseId}/>
+            </div>
         </Container>
     )
 }
 
-export default CourseReviewForm
+export default CourseReview

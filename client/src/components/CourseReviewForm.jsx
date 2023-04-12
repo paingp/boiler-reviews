@@ -15,8 +15,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
-import { useNavigate } from 'react-router-dom';
-
 const test = <Typography sx = {{fontFamily: 'Arial', fontSize: 10}}>
 <div>What do these ratings mean?</div>
 <div><strong>Overall:</strong> How would you rate this class taking everything into account?</div>
@@ -43,8 +41,8 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
     },
   });
 
-export default function CourseReviewForm() {
-    const {handleSubmit, control} = useForm();
+export default function CourseReviewForm({course}) {
+    const {handleSubmit, reset, control} = useForm();
 
     async function postData(url = "", data = {}) {
         const response = await fetch(url, {
@@ -57,12 +55,12 @@ export default function CourseReviewForm() {
         return response.json();
     }
     
-    const navigate = useNavigate();
-
     const onSubmit = (data) => {
-        console.log(data)  
-        postData("http://localhost:8000/submit", data)
-        navigate("/coursereview")
+        data.course = course
+        //data.course = {course}
+        console.log(data)
+        postData("http://localhost:8000/submit-course-review", data)
+        reset()
     };
 
     const onInvalid = (errors) => console.error(errors);

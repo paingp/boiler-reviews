@@ -14,7 +14,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
     }
   }));
 
-function InstructorReviewForm() {
+function InstructorReview() {
     return (
         <Container>
         <AppBar position="static" style={{ background: '#333232' }}>
@@ -47,4 +47,4 @@ function InstructorReviewForm() {
     )
 }
 
-export default InstructorReviewForm
+export default InstructorReview

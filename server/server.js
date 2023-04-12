@@ -9,20 +9,19 @@ dotenv.config();
 app.use(cors())
 app.use(express.json())
 
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASS,
     database: process.env.DB
 });
 
-connection.connect(function(err) {
+pool.getConnection(function(err) {
     if (err) {
-      console.error('error connecting: ' + err.stack);
-      return;
+    console.error('error connecting: ' + err.stack);
+    return;
     }
-   
-    console.log('connected as id ' + connection.threadId);
+    console.log("Connected to database")
 });
 
 const port = process.env.PORT || 5000;
@@ -31,11 +30,23 @@ app.get('/', function(req, res) {
     console.log("Boiler Reviews Server")
 });
 
-app.post('/submit', function(req, res) {
+app.get('/course/:courseId', function(req, res) {
+    //console.log(req.params.courseId)
+    //console.log(req.params)
+    pool.query('SELECT * FROM coursereviews WHERE course = ?', [req.params.courseId], function(error, result, fields) {
+        if (error == null) {
+            res.json(result)
+            return
+        }
+    })
+    //res.json('Be the first to leave a review')
+    //res.json(result)
+})
+
+app.post('/submit-course-review', function(req, res) {
     //console.log(req.body);
-    req.body["course"] = "ECE 40875"
-    req.body["instructor"] = req.body["instructor"].split(',')
-    req.body["instructor"] = req.body["instructor"][1].trimStart() + ' ' + req.body["instructor"][0]
+    //req.body["instructor"] = req.body["instructor"].split(',')
+    //req.body["instructor"] = req.body["instructor"][1].trimStart() + ' ' + req.body["instructor"][0]
 
     const numericFields = ["workload", "overall", "difficulty", "standardized", "interesting", "useful"];
     for (const f of numericFields) {
@@ -48,7 +59,7 @@ app.post('/submit', function(req, res) {
     //console.log(req.body)
     let schema = '(course, instructor, term, year, workload, grade, evaluation, overall, difficulty, standardized, interesting, useful, review, time, likes)'
     //connection.query('INSERT INTO coursereviews SET ?', review)
-    connection.query('INSERT INTO coursereviews SET ?', req.body)
+    pool.query('INSERT INTO coursereviews SET ?', req.body)
 });
 
 app.listen(port, () => {
