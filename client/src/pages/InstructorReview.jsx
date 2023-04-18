@@ -7,6 +7,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+import InstructorReviewForm from "../components/InstructorReviewForm";
+
 const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#FFD700',
     '&:hover': {
@@ -15,16 +20,28 @@ const ColorButton = styled(Button)(({ theme }) => ({
   }));
 
 function InstructorReview() {
+
+    const {instructorId} = useParams()
+
+    const [reviews, setReviews] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:8000/course/' + instructorId)
+        .then(response => response.json())
+        .then(json => setReviews(json))
+    })
+
+
     return (
         <Container>
         <AppBar position="static" style={{ background: '#333232' }}>
             <Toolbar variant="dense" sx={{mx: "auto"}}>
                 <Typography variant="subtitle1" color="inherit" component="div" sx = {{display: 'flex', justifyContent: 'center', width: '100%', margin:'0'}}>
-                    Santiago Torres Arias
+                    {instructorId}
                 </Typography> 
             </Toolbar>
         </AppBar>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} marginBottom={5}>
             <Grid item xs={12} md={8}>
                 <Box sx={{width: 500, height: 83, mt:2, backgroundColor: '#FFD700'}}>
                 <Box sx={{m:1}}>
@@ -43,6 +60,14 @@ function InstructorReview() {
                 </Box>
             </Grid>
         </Grid>
+        <div>
+            {reviews.map(review => {
+                return <div> {JSON.stringify(review)} </div>
+            })}
+        </div>
+        <div>
+            <InstructorReviewForm instructor={instructorId}/>
+        </div>
     </Container>
     )
 }

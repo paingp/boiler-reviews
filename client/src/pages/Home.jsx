@@ -14,6 +14,9 @@ function Home() {
     const [course, setCourse] = useState('')
     const [inputCourse, setInputCourse] = useState(courses[0])
 
+    const [instructor, setInstructor] = useState('')
+    const [inputInstructor, setInputInstructor] = useState(instructors[0])
+
     const [department, setDepartment] = useState('')
 
     const navigate = useNavigate()
@@ -43,7 +46,18 @@ function Home() {
                             renderInput={(params) => <TextField {...params} label="Course" />}/>
                     </Grid>
                     <Grid item xs={4}>
-                        <Autocomplete sx={{ width: 300 }} id="instr" options={instructors} renderInput={(params) => <TextField {...params} label="Instructor" />}/>
+                        <Autocomplete id="instructor" options={instructors}
+                            value={instructor}
+                            onChange={(event, newValue) => {
+                            setInstructor(newValue);
+                            navigate('instructor/' + newValue)
+                            }}
+                            inputValue={inputInstructor}
+                            onInputChange={(event, newInputValue) => {
+                            setInputInstructor(newInputValue);
+                            }}
+                            sx={{ width: 300 }} 
+                            renderInput={(params) => <TextField {...params} label="Instructor" />}/>
                     </Grid>
                     <Grid item xs={4}>
                     <FormControl sx={{ width:300 }}>
