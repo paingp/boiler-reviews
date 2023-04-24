@@ -74,7 +74,7 @@ export default function InstructorReviewForm({instructor}) {
       
       return(
         <Container maxWidth="md" sx={{border: '1px solid black'}}>
-            <h3>Instructor Review Form</h3>
+            <h3 style={{fontFamily:'monospace', fontStyle:'italic'}}>Write a Review for {instructor}</h3>
             <Box sx={{display: 'flex', flexDirection: 'column'}}>
                 <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
                     <Grid container spacing={2}>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Container, Grid } from "@mui/material";
-import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { TextField } from "@mui/material";
@@ -24,12 +23,12 @@ function Home() {
     return (
         <Container>
             <AppBar position="static" style={{ background: '#333232' }}>
-                <Toolbar variant="dense" sx={{mx: "auto"}}>
-                    <Typography variant="subtitle1" color="inherit" component="div" sx = {{display: 'flex', justifyContent: 'center', width: '100%', margin:'0'}}></Typography> 
-                </Toolbar>
+                <Toolbar variant="dense" sx={{mx: "auto"}}> </Toolbar>
             </AppBar>
-            <h1 style={{textAlign:'center'}}>Boiler Reviews</h1>
-            <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
+            <Box sx={{pt:10}}>
+                <h1 style={{textAlign:'center',fontFamily:'monospace', fontSize:'50px'}}>Boiler Reviews</h1>
+            </Box>
+            <Box display="flex" justifyContent="center" alignItems="center" minHeight="20vh">
                 <Grid container spacing={2} align='center'>
                     <Grid item xs={4}>
                         <Autocomplete id="course" options={courses}
@@ -43,7 +42,7 @@ function Home() {
                             setInputCourse(newInputValue);
                             }}
                             sx={{ width: 300 }} 
-                            renderInput={(params) => <TextField {...params} label="Course" />}/>
+                            renderInput={(params) => <TextField sx={{border: '1px solid gold', borderRadius: 1}} {...params} label="Course" />}/>
                     </Grid>
                     <Grid item xs={4}>
                         <Autocomplete id="instructor" options={instructors}
@@ -57,10 +56,10 @@ function Home() {
                             setInputInstructor(newInputValue);
                             }}
                             sx={{ width: 300 }} 
-                            renderInput={(params) => <TextField {...params} label="Instructor" />}/>
+                            renderInput={(params) => <TextField sx={{border: '1px solid gold', borderRadius: 1}} {...params} label="Instructor" />}/>
                     </Grid>
                     <Grid item xs={4}>
-                    <FormControl sx={{ width:300 }}>
+                    <FormControl sx={{ width:300, border: '1px solid gold', borderRadius: 1 }}>
                         <InputLabel id="department">Department</InputLabel>
                         <Select label="department" onChange={() => setDepartment({department})} value={department} MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}>
                             {departments.map((dept) => (

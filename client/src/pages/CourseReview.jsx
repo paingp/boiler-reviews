@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import {useRef} from 'react';
 import { useParams } from "react-router-dom";
 import { Box, Container, Grid } from "@mui/material";
 import Typography from '@mui/material/Typography';
@@ -10,9 +11,9 @@ import { styled } from '@mui/material/styles';
 import CourseReviewForm from "../components/CourseReviewForm";
 
 const ColorButton = styled(Button)(({ theme }) => ({
-    backgroundColor: '#FFD700',
+    backgroundColor: 'gold',
     '&:hover': {
-        backgroundColor: '#FFD700', 
+        backgroundColor: 'gold', 
     }
   }));
 
@@ -28,32 +29,38 @@ function CourseReview() {
         .then(json => setReviews(json))
     })
 
+    const ref = useRef(null);
+
+    const handleClick = () => {
+        ref.current?.scrollIntoView({behavior: 'smooth'});
+    };
+
     return (
         <Container>
             <AppBar position="static" style={{ background: '#333232' }}>
                 <Toolbar variant="dense" sx={{mx: "auto"}}>
-                    <Typography variant="subtitle1" color="inherit" component="div" sx = {{display: 'flex', justifyContent: 'center', width: '100%', margin:'0'}}>
+                    <Typography variant="subtitle1" color="inherit" component="div" sx = {{display: 'flex', justifyContent: 'center', width: '100%', margin:'0', fontFamily:'monospace'}}>
                         {courseId}
                     </Typography> 
                 </Toolbar>
             </AppBar>
             <Grid container spacing={2} marginBottom={5}>
                 <Grid item xs={12} md={8}>
-                    <Box sx={{width: 500, height: 85, mt:2, backgroundColor: '#FFD700'}}>
-                        <Box sx={{m:1}}>
-                            <h3>
-                                <div>Overall: </div>
-                                <div>Average Difficulty:</div>
-                                <div>Average Workload:</div>
-                            </h3>
+                    <Box sx={{width: 875, height: 100, mt:2, backgroundColor: '#FDDC5C'}}>
+                        <Box sx={{pt:1}}>
+                            <p style={{textAlign:'center', fontFamily:'monospace', fontStyle:'italic', fontSize:'15.5px'}}> 
+                                Overall &nbsp; 
+                                Average Difficulty &nbsp;
+                                Average Standardization &nbsp; 
+                                Average Interest &nbsp; 
+                                Average Usefulness
+                            </p>
                         </Box>
                     </Box>
                 </Grid>
                 <Grid item xs={6} md={4}>
-                    <Box sx={{pt:8,pl:30}}>
-                    <a href="/coursereviewform">
-                        <ColorButton>Write Review</ColorButton>
-                    </a>
+                    <Box sx={{pt:12,pl:30}}>
+                        <ColorButton onClick={handleClick} style={{fontFamily:'monospace', color:'black'}}>Write Review</ColorButton>
                     </Box>
                 </Grid>
             </Grid>
@@ -62,7 +69,7 @@ function CourseReview() {
                     return <div> {JSON.stringify(review)} </div>
                 })}
             </div>
-            <div>
+            <div ref={ref}>
                 <CourseReviewForm course={courseId}/>
             </div>
         </Container>
