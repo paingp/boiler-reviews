@@ -1,8 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Typography from '@mui/material/Typography';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import { Box, Container, Grid } from "@mui/material";
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
@@ -11,12 +9,11 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import IconButton from '@mui/material/IconButton';
 
 import Dropdown from "../form_components/Dropdown";
+import FormAutocomplete from "../form_components/FormAutocomplete";
 import MultiSelect from "../form_components/MultiSelect";
 import FormRating from "../form_components/FormRating"
 import ReviewInput from "../form_components/ReviewInput";
 import { courses } from "../constants";
-
-import { useNavigate } from 'react-router-dom';
 
 const terms = ["Fall", "Spring", "Summer"];
 
@@ -52,8 +49,8 @@ const rec = ["I recommend this professor for all their courses", "I recommend th
 
 const style = ["Online", "In Person", "Hybrid"]
 
-export default function InstructorReviewForm() {
-      const {handleSubmit, control} = useForm();
+export default function InstructorReviewForm({instructor}) {
+      const {handleSubmit, reset, control} = useForm();
   
       async function postData(url = "", data = {}) {
           const response = await fetch(url, {
@@ -65,35 +62,26 @@ export default function InstructorReviewForm() {
           });
           return response.json();
       }
-      
-      const navigate = useNavigate();
 
       const onSubmit = (data) => {
-          console.log(data)  
-          postData("http://localhost:8000/submit", data)
-          navigate("/instrreview")
+        data.instructor = instructor
+        console.log(data)
+        postData("http://localhost:8000/submit-instructor-review", data)
+        reset()
       };
   
       const onInvalid = (errors) => console.error(errors);
       
       return(
         <Container maxWidth="md" sx={{border: '1px solid black'}}>
+            <h3 style={{fontFamily:'monospace', fontStyle:'italic'}}>Write a Review for {instructor}</h3>
             <Box sx={{display: 'flex', flexDirection: 'column'}}>
                 <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} md={12}>
-                          <AppBar position="static" style={{ background: '#333232' }}>
-                            <Toolbar variant="dense">
-                              <Typography variant="subtitle1" color="inherit" component="div" sx = {{display: 'flex', justifyContent: 'center', width: '100%'}}>
-                                Writing Review
-                              </Typography> 
-                            </Toolbar>
-                          </AppBar>
-                        </Grid>
                         <Grid item xs={12} md={8}>
                             <Grid container spacing={2}>
                                 <Grid item xs={6} md={6}>
-                                    <MultiSelect name="course" control={control} label="Course" required={true} options={courses}/>
+                                    <FormAutocomplete name="course" control={control} label="Course" options={courses}/>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
                                     <MultiSelect name="rec" control={control} label="Recommendation" required={true} options={rec}/>
@@ -112,7 +100,7 @@ export default function InstructorReviewForm() {
                                 </Grid>
                             </Grid>
                             <div style={{marginTop: "25px"}}>   
-                                <ReviewInput name="review" control={control} label="Comments on the professor" rows={8}/>
+                                <ReviewInput name="review" control={control} label="Comments on the instructor" rows={8}/>
                             </div>
                         </Grid>
                         <Grid item xs={12} md={2}>

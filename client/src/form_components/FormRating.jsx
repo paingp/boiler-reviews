@@ -4,7 +4,7 @@ import { Controller } from "react-hook-form";
 function FormRating({name, control, label}) {
     return (
         <div>
-            <Typography component="legend">{label}</Typography>
+            <Typography style={{fontFamily:'monospace'}} component="legend">{label}</Typography>
             <Controller
                 name={name}
                 control={control}

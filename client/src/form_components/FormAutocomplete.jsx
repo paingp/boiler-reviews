@@ -14,7 +14,7 @@ export default function FormAutocomplete({name, control, label, options}) {
                     getOptionLabel={(option) => option}
                     filterSelectedOptions
                     renderInput={(params) => (
-                        <TextField
+                        <TextField style={{fontFamily:'monospace'}}
                             {...params}
                             label={label}
                             variant="filled"

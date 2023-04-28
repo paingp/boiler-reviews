@@ -41,6 +41,13 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
     },
   });
 
+const ColorButton = styled(Button)(({ theme }) => ({
+    backgroundColor: '#FFD700',
+    '&:hover': {
+        backgroundColor: '#FFD700', 
+    }
+}));
+
 export default function CourseReviewForm({course}) {
     const {handleSubmit, reset, control} = useForm();
 
@@ -67,7 +74,7 @@ export default function CourseReviewForm({course}) {
 
     return (
         <Container maxWidth="md" sx={{border: '1px solid black'}}>
-            <h3>Course Review Form</h3>
+            <h3 style={{fontFamily:'monospace', fontStyle:'italic'}}>Write a Review for {course}</h3>
             <Box sx={{display: 'flex', flexDirection: 'column'}}>
                 <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
                     <Grid container spacing={2}>
@@ -115,9 +122,9 @@ export default function CourseReviewForm({course}) {
                             </Box>
                         </Grid>
                     </Grid>
-                    <Button type="submit" variant="contained" sx={{maxWidth: 0.25, mt: 3, mb: 2}}>
+                    <ColorButton type="submit" variant="contained" sx={{maxWidth: 0.25, mt: 3, mb: 2}}>
                         Submit
-                    </Button>   
+                    </ColorButton>   
                 </form>
             </Box>
         </Container>
