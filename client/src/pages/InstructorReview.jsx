@@ -8,13 +8,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import InstructorReviewForm from "../components/InstructorReviewForm";
+import InstructorReviewCard from "../form_components/InstructorReviewCard";
+import InstructorAverageRating from "../form_components/InstructorAverageRating";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#FFD700',
@@ -52,17 +51,9 @@ function InstructorReview() {
         </AppBar>
         <Grid container spacing={2} marginBottom={5}>
             <Grid item xs={12} md={8}>
-                <Box sx={{width: 875, height: 100, mt:2, backgroundColor: '#FDDC5C'}}>
-                    <Box sx={{pt:1}}>
-                        <p style={{textAlign:'center', fontFamily:'monospace', fontStyle:'italic', fontSize:'15.5px'}}> 
-                            Overall &nbsp; &nbsp;
-                            Average Teaching &nbsp; &nbsp;
-                            Average Care &nbsp; &nbsp;
-                            Average Interest &nbsp; &nbsp;
-                            Average Grading
-                        </p>
-                    </Box>
-                </Box>
+
+                <InstructorAverageRating overall="4" teaching="4.5" caring='4' interesting='4' grading='4.5'/>
+
             </Grid>
             <Grid item xs={6} md={4}>
                 <Box sx={{pt:12,pl:30}}>
@@ -71,55 +62,7 @@ function InstructorReview() {
             </Grid>
         </Grid>
 
-        <Card sx={{mx: "auto", border: '1px solid gold'}}>
-            <CardContent>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={8}>
-                        <Typography component="flex" sx={{ mr: 10}} style={{fontFamily:'monospace'}}>
-                        <strong>Course:</strong> CS304
-                        </Typography>
-                        <Typography component="flex" sx={{ mr: 10}}style={{fontFamily:'monospace'}}>
-                        <strong>Grade:</strong> A
-                        </Typography>
-                        <Typography component="flex" sx={{ mr: 10 }}style={{fontFamily:'monospace'}}>
-                        <strong>Term:</strong> Spring 
-                        <br />
-                        </Typography>
-                        <Typography component="flex" sx={{ mr: 10 }} style={{fontFamily:'monospace'}}>
-                        <strong>Style:</strong> Hybrid
-                        </Typography>
-                        <Typography component="flex" style={{fontFamily:'monospace'}}>
-                        <strong>Year:</strong> 2022
-                        <br/>
-                        </Typography>
-                        <Typography component="flex" style={{fontFamily:'monospace'}}>
-                        <strong>Recommendation:</strong> I recommend this professor for all their courses
-                        </Typography>
-                        <Typography style={{fontFamily:'monospace'}}>
-                        <strong>Comments:</strong> Great class, no homework. Lots of quizzes. Great class, no homework. Lots of quizzes.  Great class, no homework. Lots of quizzes. 
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <Typography style={{fontFamily:'monospace'}}>
-                            <strong>Overall:</strong> 4
-                            <br/>
-                            <strong>Teaching:</strong> 4
-                            <br/>
-                            <strong>Caring:</strong> 4
-                            <br/>
-                            <strong>Interesting:</strong> 4
-                            <br/>
-                            <strong>Grading:</strong> 4
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} md={1}>
-                        <Typography style={{fontFamily:'monospace'}}>
-                            <strong>Date</strong>
-                        </Typography>
-                    </Grid>
-                </Grid>
-            </CardContent>
-        </Card>
+        <InstructorReviewCard course='course' term='term' year='year' workload='workload' grade='grade' delivery='delivery' recommendation='recommendation' overall='overall' teaching='teaching' grading='grading' interesting='interesting' caring='caring' review='review' time='time' likes='likes'/>
         
         <div>
             {reviews.map(review => {
