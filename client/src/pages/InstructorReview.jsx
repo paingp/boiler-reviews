@@ -22,12 +22,12 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 function InstructorReview() {
 
-    const {instructorId} = useParams()
+    const {id} = useParams()
 
     const [reviews, setReviews] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:8000/course/' + instructorId)
+        fetch('http://localhost:8000/instructor/' + id)
         .then(response => response.json())
         .then(json => setReviews(json))
     })
@@ -43,7 +43,7 @@ function InstructorReview() {
         <AppBar position="static" style={{ background: '#333232' }}>
             <Toolbar variant="dense" sx={{mx: "auto"}}>
                 <Typography variant="subtitle1" color="inherit" component="div" sx = {{display: 'flex', justifyContent: 'center', width: '100%', margin:'0',  fontFamily:'monospace'}}>
-                    {instructorId}
+                    {id}
                 </Typography> 
             </Toolbar>
         </AppBar>
@@ -73,7 +73,7 @@ function InstructorReview() {
             })}
         </div>
         <div ref={ref}>
-            <InstructorReviewForm instructor={instructorId}/>
+            <InstructorReviewForm instructor={id}/>
         </div>
 
     </Container>

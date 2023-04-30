@@ -10,10 +10,11 @@ import IconButton from '@mui/material/IconButton';
 
 import Dropdown from "../form_components/Dropdown";
 import FormAutocomplete from "../form_components/FormAutocomplete";
-import MultiSelect from "../form_components/MultiSelect";
+import NumberInput from "../form_components/NumberInput";
 import FormRating from "../form_components/FormRating"
 import ReviewInput from "../form_components/ReviewInput";
-import { courses } from "../constants";
+import { courses } from "../components/constants";
+
 
 const terms = ["Fall", "Spring", "Summer"];
 
@@ -25,15 +26,15 @@ const ColorButton = styled(Button)(({ theme }) => ({
     '&:hover': {
         backgroundColor: '#FFD700', 
     }
-  }));
+}));
 
-  const CustomWidthTooltip = styled(({ className, ...props }) => (
+const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
-  ))({
+    ))({
     [`& .${tooltipClasses.tooltip}`]: {
       maxWidth: 250,
     },
-  });
+});
 const test = <Typography sx = {{fontFamily: 'Arial', fontSize: 10}}>
 <div>What do these ratings mean?</div>
 <div><strong>Overall:</strong> How would you rate this professor taking everything into account?</div>
@@ -43,11 +44,9 @@ const test = <Typography sx = {{fontFamily: 'Arial', fontSize: 10}}>
 <div><strong>Grading:</strong> Is this professor's grading very strict and tedious (1) or lenient and forgiving (5)?</div>
 </Typography>
 
-const grades = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C"];
+const rec = ["All their courses", "Only this course", "Other courses", "Not recommended"]
 
-const rec = ["I recommend this professor for all their courses", "I recommend this instructor for this course", "I recommend this instructor for other courses", "I do not recommend this professor for any classes"]
-
-const style = ["Online", "In Person", "Hybrid"]
+const delivery = ["Online", "In Person", "Hybrid"]
 
 export default function InstructorReviewForm({instructor}) {
       const {handleSubmit, reset, control} = useForm();
@@ -66,7 +65,7 @@ export default function InstructorReviewForm({instructor}) {
       const onSubmit = (data) => {
         data.instructor = instructor
         console.log(data)
-        postData("http://localhost:8000/submit-instructor-review", data)
+        postData("http://localhost:8000/instructor/" + instructor, data)
         reset()
       };
   
@@ -80,23 +79,23 @@ export default function InstructorReviewForm({instructor}) {
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={8}>
                             <Grid container spacing={2}>
-                                <Grid item xs={6} md={6}>
+                                <Grid item xs={12} md={6}>
                                     <FormAutocomplete name="course" control={control} label="Course" options={courses}/>
-                                </Grid>
-                                <Grid item xs={6} md={6}>
-                                    <MultiSelect name="rec" control={control} label="Recommendation" required={true} options={rec}/>
                                 </Grid>
                                 <Grid item xs={6} md={3}>
                                     <Dropdown name="term" control={control} label="Term" options={terms} required={true}/>
                                 </Grid>
                                 <Grid item xs={6} md={3}>
-                                    <Dropdown name="grade" control={control} label="Grade" options={grades}/>
-                                </Grid>
-                                <Grid item xs={6} md={3}>
-                                    <Dropdown name="style" control={control} label="Style" options={style}/>
-                                </Grid>
-                                <Grid item xs={6} md={3}>
                                     <Dropdown name="year" control={control} label="Year" options={years} required={true}/>
+                                </Grid>
+                                <Grid item xs={6} md={3}>
+                                    <NumberInput name="workload" control={control} label="Workload" required={true}/>
+                                </Grid>
+                                <Grid item xs={6} md={3}>
+                                    <Dropdown name="delivery" control={control} label="Delivery" options={delivery}/>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Dropdown name="recommendation" control={control} label="Recommended for" options={rec} required={true} width={265}/>
                                 </Grid>
                             </Grid>
                             <div style={{marginTop: "25px"}}>   
@@ -107,9 +106,9 @@ export default function InstructorReviewForm({instructor}) {
                             <Box>
                                 <FormRating name="overall" control={control} label="Overall"/>
                                 <FormRating name="teaching" control={control} label="Teaching"/>
+                                <FormRating name="grading" control={control} label="Grading"/>
                                 <FormRating name="caring" control={control} label="Caring"/>
                                 <FormRating name="interesting" control={control} label="Interesting"/>
-                                <FormRating name="grading" control={control} label="Grading"/>
                             </Box>
                         </Grid>
                         <Grid item xs={12} md={2}>

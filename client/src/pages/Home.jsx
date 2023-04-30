@@ -7,16 +7,24 @@ import { TextField } from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
 import { Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 
-import { instructors, courses, departments } from "../constants";
+import { instructors, courses, departments } from "../components/constants";
+import CourseReviewForm from "../components/CourseReviewForm";
+import CourseTable from "../components/CourseTable";
 
 function Home() {
-    const [course, setCourse] = useState('')
-    const [inputCourse, setInputCourse] = useState(courses[0])
+    const [course, setCourse] = useState(courses[0])
+    const [inputCourse, setInputCourse] = useState('')
 
-    const [instructor, setInstructor] = useState('')
-    const [inputInstructor, setInputInstructor] = useState(instructors[0])
+    const [instructor, setInstructor] = useState(instructors[0])
+    const [inputInstructor, setInputInstructor] = useState('')
 
     const [department, setDepartment] = useState('')
+    const [showDept, setShowDept] = useState(false)
+
+    function updateDept(event) {
+        setDepartment(event.target.value)
+        setShowDept(true)
+    }
 
     const navigate = useNavigate()
 
@@ -34,12 +42,12 @@ function Home() {
                         <Autocomplete id="course" options={courses}
                             value={course}
                             onChange={(event, newValue) => {
-                            setCourse(newValue);
-                            navigate('course/' + newValue)
+                                setCourse(newValue);
+                                navigate('course/' + newValue)
                             }}
                             inputValue={inputCourse}
                             onInputChange={(event, newInputValue) => {
-                            setInputCourse(newInputValue);
+                                setInputCourse(newInputValue);
                             }}
                             sx={{ width: 300 }} 
                             renderInput={(params) => <TextField sx={{border: '1px solid gold', borderRadius: 1}} {...params} label="Course" />}/>
@@ -48,26 +56,30 @@ function Home() {
                         <Autocomplete id="instructor" options={instructors}
                             value={instructor}
                             onChange={(event, newValue) => {
-                            setInstructor(newValue);
-                            navigate('instructor/' + newValue)
+                                setInstructor(newValue);
+                                navigate('instructor/' + newValue)
                             }}
                             inputValue={inputInstructor}
                             onInputChange={(event, newInputValue) => {
-                            setInputInstructor(newInputValue);
+                                setInputInstructor(newInputValue);
                             }}
+                            isOptionEqualToValue={(option, value) => option.value === value.value}
                             sx={{ width: 300 }} 
                             renderInput={(params) => <TextField sx={{border: '1px solid gold', borderRadius: 1}} {...params} label="Instructor" />}/>
                     </Grid>
                     <Grid item xs={4}>
                     <FormControl sx={{ width:300, border: '1px solid gold', borderRadius: 1 }}>
                         <InputLabel id="department">Department</InputLabel>
-                        <Select label="department" onChange={() => setDepartment({department})} value={department} MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}>
+                        <Select label="department" value={department} onChange={updateDept} MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}>
                             {departments.map((dept) => (
                                 <MenuItem key={dept} value={dept}>{dept}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
                     </Grid>
+                    <Container sx={{mt:8}}>
+                        {showDept && <CourseTable/>}
+                    </Container>
                 </Grid>
             </Box>
         </Container>

@@ -15,17 +15,21 @@ const ColorButton = styled(Button)(({ theme }) => ({
     '&:hover': {
         backgroundColor: 'gold', 
     }
-  }));
+}));
 
+function formatCourse(str) {
+    return str.replace(/(\D)(\d)/g, '$1 $2')
+}
 
 function CourseReview() {
-    const {courseId} = useParams()
+    const {id} = useParams()
 
     const [reviews, setReviews] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:8000/course/' + courseId)
+        fetch('http://localhost:8000/course/' + id)
         .then(response => response.json())
+        //.then(json => console.log(json))
         .then(json => setReviews(json))
     })
 
@@ -35,12 +39,14 @@ function CourseReview() {
         ref.current?.scrollIntoView({behavior: 'smooth'});
     };
 
+    const courseID = formatCourse(id)
+
     return (
         <Container>
             <AppBar position="static" style={{ background: '#333232' }}>
                 <Toolbar variant="dense" sx={{mx: "auto"}}>
                     <Typography variant="subtitle1" color="inherit" component="div" sx = {{display: 'flex', justifyContent: 'center', width: '100%', margin:'0', fontFamily:'monospace'}}>
-                        {courseId}
+                        {courseID}
                     </Typography> 
                 </Toolbar>
             </AppBar>
@@ -70,7 +76,7 @@ function CourseReview() {
                 })}
             </div>
             <div ref={ref}>
-                <CourseReviewForm course={courseId}/>
+                <CourseReviewForm course={courseID}/>
             </div>
         </Container>
     )

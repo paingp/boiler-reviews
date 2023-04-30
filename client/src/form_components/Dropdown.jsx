@@ -1,9 +1,9 @@
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { Controller } from "react-hook-form";
 
-function Dropdown({name, control, label, options, required = false}) {
+function Dropdown({name, control, label, options, required = false, width = 120}) {
     return (
-        <FormControl required={required} variant="filled" sx={{ minWidth: 120 }}>
+        <FormControl required={required} variant="filled" sx={{width}}>
             <InputLabel variant="filled">{label}</InputLabel>
             <Controller
                 name={name}

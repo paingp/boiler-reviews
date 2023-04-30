@@ -7,7 +7,7 @@ import NumberInput from "../form_components/NumberInput";
 import MultiSelect from "../form_components/MultiSelect";
 import FormRating from "../form_components/FormRating"
 import ReviewInput from "../form_components/ReviewInput";
-import { instructors } from "../constants";
+import { instructors } from "../components/constants";
 
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
@@ -66,7 +66,7 @@ export default function CourseReviewForm({course}) {
         data.course = course
         //data.course = {course}
         console.log(data)
-        postData("http://localhost:8000/submit-course-review", data)
+        postData("http://localhost:8000/course/" + course, data)
         reset()
     };
 
@@ -99,7 +99,7 @@ export default function CourseReviewForm({course}) {
                                     <Dropdown name="grade" control={control} label="Grade" options={grades}/>
                                 </Grid>
                             </Grid>
-                            <div style={{marginTop: "25px"}}>
+                            <div style={{marginTop: "25px", maxWidth: 555}}>
                                 <ReviewInput name="review" control={control} formlabel="Comments on the course" label="Share your thoughts on the course" rows={8}/>
                             </div>
                         </Grid>
