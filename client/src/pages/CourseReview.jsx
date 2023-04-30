@@ -8,7 +8,13 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+
 import CourseReviewForm from "../components/CourseReviewForm";
+import CourseReviewCard from "../form_components/CourseReviewCard";
+import CourseAverageRating from "../form_components/CourseAverageRating";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: 'gold',
@@ -51,25 +57,18 @@ function CourseReview() {
                 </Toolbar>
             </AppBar>
             <Grid container spacing={2} marginBottom={5}>
-                <Grid item xs={12} md={8}>
-                    <Box sx={{width: 875, height: 100, mt:2, backgroundColor: '#FDDC5C'}}>
-                        <Box sx={{pt:1}}>
-                            <p style={{textAlign:'center', fontFamily:'monospace', fontStyle:'italic', fontSize:'15.5px'}}> 
-                                Overall &nbsp; 
-                                Average Difficulty &nbsp;
-                                Average Standardization &nbsp; 
-                                Average Interest &nbsp; 
-                                Average Usefulness
-                            </p>
-                        </Box>
-                    </Box>
-                </Grid>
+                
+                <CourseAverageRating overall="4" difficulty="4.5" standardized='4' interesting='4' usefulness='4.5'/>
+
                 <Grid item xs={6} md={4}>
                     <Box sx={{pt:12,pl:30}}>
                         <ColorButton onClick={handleClick} style={{fontFamily:'monospace', color:'black'}}>Write Review</ColorButton>
                     </Box>
                 </Grid>
             </Grid>
+
+            <CourseReviewCard instructor='instructor' term='term' year='year' workload='workload' grade='grade' evaluation='evaluation' overall='overall' difficulty='difficulty' standardized='standardized' interesting='interesting' useful='useful' review='review' time='time' likes='likes'/>
+
             <div>
                 {reviews.map(review => {
                     return <div> {JSON.stringify(review)} </div>

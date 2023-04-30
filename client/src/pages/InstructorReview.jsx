@@ -12,6 +12,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import InstructorReviewForm from "../components/InstructorReviewForm";
+import InstructorReviewCard from "../form_components/InstructorReviewCard";
+import InstructorAverageRating from "../form_components/InstructorAverageRating";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#FFD700',
@@ -49,17 +51,9 @@ function InstructorReview() {
         </AppBar>
         <Grid container spacing={2} marginBottom={5}>
             <Grid item xs={12} md={8}>
-                <Box sx={{width: 875, height: 100, mt:2, backgroundColor: '#FDDC5C'}}>
-                    <Box sx={{pt:1}}>
-                        <p style={{textAlign:'center', fontFamily:'monospace', fontStyle:'italic', fontSize:'15.5px'}}> 
-                            Overall &nbsp; &nbsp;
-                            Average Teaching &nbsp; &nbsp;
-                            Average Care &nbsp; &nbsp;
-                            Average Interest &nbsp; &nbsp;
-                            Average Grading
-                        </p>
-                    </Box>
-                </Box>
+
+                <InstructorAverageRating overall="4" teaching="4.5" caring='4' interesting='4' grading='4.5'/>
+
             </Grid>
             <Grid item xs={6} md={4}>
                 <Box sx={{pt:12,pl:30}}>
@@ -67,6 +61,9 @@ function InstructorReview() {
                 </Box>
             </Grid>
         </Grid>
+
+        <InstructorReviewCard course='course' term='term' year='year' workload='workload' grade='grade' delivery='delivery' recommendation='recommendation' overall='overall' teaching='teaching' grading='grading' interesting='interesting' caring='caring' review='review' time='time' likes='likes'/>
+        
         <div>
             {reviews.map(review => {
                 return <div> {JSON.stringify(review)} </div>
