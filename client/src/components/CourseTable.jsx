@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import { styled } from '@mui/material/styles';
@@ -8,7 +9,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(id, overall, difficulty, standardized, interesting, useful, workload, reviews) {
+import { CourseMap } from './constants';
+
+function createRow(id, overall, difficulty, standardized, interesting, useful, workload, reviews) {
     return {id, overall, difficulty, standardized, interesting, useful, workload, reviews}
 }
 
@@ -34,13 +37,48 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
   }));
 
+/*
 const courses = [
-    createData("ECE 201", 0, 0, 0, 0, 0, 0, 0),
-    createData("ECE 202", 0, 0, 0, 0, 0, 0, 0),
-    createData("ECE 207", 0, 0, 0, 0, 0, 0, 0)
+    createRow("ECE 201", 0, 0, 0, 0, 0, 0, 0),
+    createRow("ECE 202", 0, 0, 0, 0, 0, 0, 0),
+    createRow("ECE 207", 0, 0, 0, 0, 0, 0, 0)
 ];
+*/
+export default function CourseTable({department}) {
 
-export default function CourseTable() {
+    const [courses, setReviews] = useState([])
+    const [showReviews, setShowReviews] = useState(false)
+
+    function createData(data, allCourses) {
+      let temp = []
+      if (Object.keys(data).length !== 0) {
+        Object.values(data).forEach(c => { 
+          temp.push(createRow(c.course, c.overall, c.difficulty, c.standardized, c.interesting, c.useful, c.workload, c.reviews))
+          let idx = allCourses.indexOf(c.course)
+          delete allCourses[idx]
+      })
+      }
+      Object.values(allCourses).forEach(course => { 
+        temp.push(createRow(course, 0, 0, 0, 0, 0, 0, 0))
+      })
+      setReviews(temp)
+    }
+
+    useEffect(() => {
+      fetch('http://localhost:8000/department/' + department)
+      .then(response => {
+        if (response.status !== 200) {
+          createData({}, CourseMap[department])
+          return Promise.reject(response)
+        }
+        return response.json()
+      })
+      .then(json => createData(json, CourseMap[department]))
+      .catch(error => {
+        console.log(error)
+      })
+    }, [department])
+
     const navigate = useNavigate()
 
     return (
@@ -65,8 +103,8 @@ export default function CourseTable() {
                 onClick={() => navigate(`course/${course.id}`)}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               > 
-                <StyledTableCell component="th" scope="row" hover={true}>
-                  {course.id}
+                <StyledTableCell component="th" scope="row">
+                  {course.id.replace(/(\D)(\d)/g, '$1 $2')}
                 </StyledTableCell>
                 <StyledTableCell align="right">{course.overall}</StyledTableCell>
                 <StyledTableCell align="right">{course.difficulty}</StyledTableCell>

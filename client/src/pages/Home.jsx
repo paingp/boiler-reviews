@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Container, Grid } from "@mui/material";
 import AppBar from '@mui/material/AppBar';
@@ -8,7 +8,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 
 import { instructors, courses, departments } from "../components/constants";
-import CourseReviewForm from "../components/CourseReviewForm";
 import CourseTable from "../components/CourseTable";
 
 function Home() {
@@ -25,7 +24,17 @@ function Home() {
         setDepartment(event.target.value)
         setShowDept(true)
     }
-
+    /*
+    useEffect(() => {
+        if (department !== "") {
+            fetch('http://localhost:8000/department/' + department)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => console.log(error))
+        }
+    }, [department])
+    */
     const navigate = useNavigate()
 
     return (
@@ -41,9 +50,11 @@ function Home() {
                     <Grid item xs={4}>
                         <Autocomplete id="course" options={courses}
                             value={course}
-                            onChange={(event, newValue) => {
-                                setCourse(newValue);
-                                navigate('course/' + newValue)
+                            onChange={(event, id) => {
+                                setCourse(id);
+                                if (id) {
+                                    navigate('course/' + id)
+                                }
                             }}
                             inputValue={inputCourse}
                             onInputChange={(event, newInputValue) => {
@@ -55,9 +66,11 @@ function Home() {
                     <Grid item xs={4}>
                         <Autocomplete id="instructor" options={instructors}
                             value={instructor}
-                            onChange={(event, newValue) => {
-                                setInstructor(newValue);
-                                navigate('instructor/' + newValue)
+                            onChange={(event, id) => {
+                                setInstructor(id);
+                                if (id) {
+                                    navigate('instructor/' + id)
+                                }
                             }}
                             inputValue={inputInstructor}
                             onInputChange={(event, newInputValue) => {
@@ -77,8 +90,8 @@ function Home() {
                         </Select>
                     </FormControl>
                     </Grid>
-                    <Container sx={{mt:8}}>
-                        {showDept && <CourseTable/>}
+                    <Container sx={{mt:8, mb:10}}>
+                        {showDept && <CourseTable department={department}/>}
                     </Container>
                 </Grid>
             </Box>

@@ -2,7 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import courseRoutes from "./routes/course.js";
-import instrRoutes from "./routes/instructor.js"
+import instrRoutes from "./routes/instructor.js";
+import deptRoutes from "./routes/department.js";
 
 const port = process.env.PORT || 8080;
 
@@ -14,6 +15,7 @@ app.use(express.json())
 
 app.use("/course", courseRoutes);
 app.use("/instructor", instrRoutes);
+app.use("/department", deptRoutes);
 
 app.get('/', async function(req, res) {
     console.log("Boiler Reviews Server")

@@ -38,31 +38,10 @@ CREATE TABLE InstrReviews (
     likes SMALLINT
 );
 
-CREATE TABLE Courses (
-    course VARCHAR(12) NOT NULL,
-    PRIMARY KEY (course),
-    overall DECIMAL(2, 1),
-    difficulty DECIMAL(2, 1),
-    standardized DECIMAL(2, 1),
-    interesting DECIMAL(2, 1),
-    useful DECIMAL(2, 1),
-    reviews TINYINT UNSIGNED
-);
-
-CREATE TABLE Instructors (
-    instructor VARCHAR(24) NOT NULL,
-    PRIMARY KEY (instructor),
-    overall DECIMAL(2, 1),
-    teaching DECIMAL(2, 1),
-    grading DECIMAL(2, 1),
-    caring DECIMAL(2, 1),
-    interesting DECIMAL(2, 1),
-    reviews TINYINT UNSIGNED
-);
-
 CREATE OR REPLACE VIEW CourseRatings AS
-SELECT course, AVG(overall) AS overall, AVG(difficulty) AS difficulty, AVG(standardized) AS standardized, 
-    AVG(interesting) AS interesting, AVG(useful) AS useful, AVG(workload) AS workload, 
+SELECT course, ROUND(AVG(overall), 1) AS overall, ROUND(AVG(difficulty), 1) AS difficulty, 
+    ROUND(AVG(standardized), 1) AS standardized, ROUND(AVG(interesting), 1) AS interesting, 
+    ROUND(AVG(useful), 1) AS useful, ROUND(AVG(workload), 1) AS workload, 
     COUNT(*) AS reviews
 FROM CourseReviews
 GROUP BY course;

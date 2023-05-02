@@ -48,7 +48,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
     }
 }));
 
-export default function CourseReviewForm({course}) {
+export default function CourseReviewForm({course, id}) {
     const {handleSubmit, reset, control} = useForm();
 
     async function postData(url = "", data = {}) {
@@ -63,11 +63,12 @@ export default function CourseReviewForm({course}) {
     }
     
     const onSubmit = (data) => {
-        data.course = course
+        data.course = id
         //data.course = {course}
         console.log(data)
-        postData("http://localhost:8000/course/" + course, data)
+        postData("http://localhost:8000/course/" + id, data)
         reset()
+        window.location.reload(false);
     };
 
     const onInvalid = (errors) => console.error(errors);

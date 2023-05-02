@@ -67,6 +67,7 @@ export default function InstructorReviewForm({instructor}) {
         console.log(data)
         postData("http://localhost:8000/instructor/" + instructor, data)
         reset()
+        window.location.reload(false);
       };
   
       const onInvalid = (errors) => console.error(errors);
@@ -80,7 +81,7 @@ export default function InstructorReviewForm({instructor}) {
                         <Grid item xs={12} md={8}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
-                                    <FormAutocomplete name="course" control={control} label="Course" options={courses}/>
+                                    <FormAutocomplete name="course" control={control} label="Course" options={courses} required={true}/>
                                 </Grid>
                                 <Grid item xs={6} md={3}>
                                     <Dropdown name="term" control={control} label="Term" options={terms} required={true}/>

@@ -1,10 +1,20 @@
 import {pool} from "../models/db.js"
 
 export async function getReviews (req, res) {
-    //console.log(req.params.id)
     const [reviews] = await pool.query("SELECT * FROM InstrReviews WHERE instructor = ?", [req.params.id])
-    //console.log(reviews)
-    res.send(reviews)
+    const count = Object.keys(reviews).length
+    if (count === 0) {
+        res.status(204).send()
+    }
+    else {
+        if (count === 1) {
+            res.json({"length": 1, "review": reviews})
+        }
+        else {
+            const [stats] = await pool.query("SELECT * FROM InstrRatings WHERE instructore = ?", [req.params.id])
+            res.json({"stats": stats, "reviews": reviews})
+        }
+    }
 }
 
 export async function addReview (req, res) {
@@ -15,4 +25,5 @@ export async function addReview (req, res) {
     req.body["time"] = new Date()
     req.body["likes"] = 0
     pool.query('INSERT INTO InstrReviews SET ?', req.body)
+    res.status(201).send({message: "Successfully created a review for " + req.params.id})
 }

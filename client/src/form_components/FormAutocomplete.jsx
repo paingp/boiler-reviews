@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 
-export default function FormAutocomplete({name, control, label, options}) {
+export default function FormAutocomplete({name, control, label, options, required}) {
     return (
         <Controller
             name={name}
@@ -18,6 +18,7 @@ export default function FormAutocomplete({name, control, label, options}) {
                             {...params}
                             label={label}
                             variant="filled"
+                            required={required}
                         />
                     )}
                 />

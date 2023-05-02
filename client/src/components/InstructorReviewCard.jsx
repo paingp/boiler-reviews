@@ -1,33 +1,35 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Box, Container, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Typography from '@mui/material/Typography';
 
-
-function InstructorReviewCard({course,term,year,grade,delivery,recommendation,overall,grading,teaching,interesting,caring,review,time,likes}) {
+function InstructorReviewCard({course, term, year, grade, delivery, recommendation, overall, grading, teaching, interesting, caring, review, time, likes}) {
+    
+    time = time.slice(5, 7) + "/" + time.slice(8, 10) + "/" + time.slice(0, 4)    
+    
     return (
         <Card sx={{mx: "auto", border: '1px solid gold'}}>
             <CardContent>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} md={8}>
-                        <Typography component="flex" sx={{ mr: 10}} style={{fontFamily:'monospace'}}>
+                    <Grid item xs={12} md={7}>
+                        <Typography  sx={{ mr: 10}} style={{fontFamily:'monospace'}}>
                         <strong>Course:</strong> {course}
                         </Typography>
-                        <Typography component="flex" sx={{ mr: 10}}style={{fontFamily:'monospace'}}>
+                        <Typography  sx={{ mr: 10}}style={{fontFamily:'monospace'}}>
                         <strong>Grade:</strong> {grade}
                         </Typography>
-                        <Typography component="flex" sx={{ mr: 10 }}style={{fontFamily:'monospace'}}>
+                        <Typography  sx={{ mr: 10 }}style={{fontFamily:'monospace'}}>
                         <strong>Term:</strong> {term}
                         <br />
                         </Typography>
-                        <Typography component="flex" sx={{ mr: 10 }} style={{fontFamily:'monospace'}}>
+                        <Typography  sx={{ mr: 10 }} style={{fontFamily:'monospace'}}>
                         <strong>Style:</strong> {delivery}
                         </Typography>
-                        <Typography component="flex" style={{fontFamily:'monospace'}}>
+                        <Typography  style={{fontFamily:'monospace'}}>
                         <strong>Year:</strong> {year}
                         <br/>
                         </Typography>
-                        <Typography component="flex" style={{fontFamily:'monospace'}}>
+                        <Typography  style={{fontFamily:'monospace'}}>
                         <strong>Recommendation:</strong> {recommendation}
                         </Typography>
                         <Typography style={{fontFamily:'monospace'}}>
@@ -47,7 +49,7 @@ function InstructorReviewCard({course,term,year,grade,delivery,recommendation,ov
                             <strong>Grading:</strong> {grading}
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} md={1}>
+                    <Grid item xs={12} md={2}>
                         <Typography style={{fontFamily:'monospace'}}>
                             <strong>{time}</strong>
                         </Typography>
