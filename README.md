@@ -17,14 +17,14 @@ Express (Node.js)
 MySQL
 
 ## How we get our Data
-The data pertaining to course information, instructors, and departments was acquired by querrying two foreign api endpoints.\ 
-The queried endpoints belong to the following projects: <a href="https://www.boilergrades.com/" target="_blank">Boiler Grades</a> project and <a href="https://www.purdue.io/" target="_blank">Purdue.io</a>
-The course data at Purdue remains fairly constant over time but in the case that there are changes to course data, the two apis that we use account for those changes. 
+The data pertaining to course information, instructors, and departments was acquired by querrying two foreign api endpoints.\
+The queried endpoints belong to the following projects: <a href="https://www.boilergrades.com/" target="_blank">Boiler Grades</a> project and <a href="https://www.purdue.io/" target="_blank">Purdue.io</a>\
+We hope to update our website with the latest course data as new course offerings are introduced. 
  
  ## Team Members
  Paing Khant (pkhant@purdue.edu)\
  Thwandall Philemon (tphilemo@purdue.edu)\
- Haley Patel (pate1066@purdue.edu)\
+ Haley Patel (pate1066@purdue.edu)
  
  ## Contact Us
  Feel free to contact us or create an <a href="https://github.com/paingp/boiler-reviews/issues">issue</a>
