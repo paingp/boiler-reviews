@@ -22,9 +22,9 @@ The queried endpoints belong to the following projects: <a href="https://www.boi
 The course data at Purdue remains fairly constant over time but in the case that there are changes to course data, the two apis that we use account for those changes. 
  
  ## Team Members
- Paing Khant (pkhant@purdue.edu)
- Thwandall Philemon (tphilemo@purdue.edu)
- Haley Patel (pate1066@purdue.edu)
+ Paing Khant (pkhant@purdue.edu)\
+ Thwandall Philemon (tphilemo@purdue.edu)\
+ Haley Patel (pate1066@purdue.edu)\
  
- ## Contact us
+ ## Contact Us
  Feel free to contact us or create an <a href="https://github.com/paingp/boiler-reviews/issues">issue</a>
