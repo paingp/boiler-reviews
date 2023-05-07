@@ -1,23 +1,30 @@
-# boiler-reviews
-This repository contains all the code that was used to develop the boiler-reviews project. The purpose of the boiler-reviews project is to centralize the functionality of reviewing instructors, courses, and departments in one platform. There are older projects that each have one or two of the functionalities listed above, but not all in one platform.
+# Boiler Reviews
+The Boiler Reviews is a web platform for students to search and write reviews for courses and instructors at Purdue.
+
+## Features
+Our web application supports the following features:
+Search by Course Number
+Search by Instructor Name
+Search by Department (e.g. ECE)
 
 ## Technology
-* Majority of the code was written in Javascript
-* MySQL was used as the preferred database of choice.
+Front-end:
+React.js
+Material UI
+React Hook Form
+Back-end:
+Express (Node.js)
+MySQL
 
 ## How we get our Data
-The data pertaining to course information, instructors, and departments was acquired by querrying two foreign api endpoints. The queried endpoints belong to two similar projects which are: the <a href="https://www.boilergrades.com/" target="_blank">boiler grades</a> project and the <a href="https://www.purdue.io/" target="_blank">purdue.io</a> project. The course data at Purdue remains fairly constant over time but in the case that there are changes to course data, the two apis that we use account for those changes. A call to either api will usually return raw data that looks like this:
-
-```
-[null,"Hwang, Inseok","Hutton, Rodney E.","Shepherd, Amber M.","Lee, Sula","Jacobs, Mitchell B.","Reichelt, Shelley A.","Broden, Thomas F.","Harris, Isaac","Plante, Robert D.","Jewell, Joseph S.","Baker, Erica A.","Pruitt, Robert E.","Miller, Jordyn B.","Faezipour, Miad","Pushkar, Yulia N.","Whalen, Verity H.","Karageorge, Kaleigh A.","Pinal, Rodolfo","Stanford-Beale, David A.","Facchini, Leonardo","Hopkins, Denver R.","Chong, Ken Y.","Stein, Zoe A.","Metcalf, Michelle F.","Ju, Yongwook","Gallagher, Gillian P.","Chun, Hwayoung","Headworth, Spencer J.","Shin, Young Tae","Kladivko, Eileen J.","Guo, Siqi","Street, Julia M.","Carr, Melodie J.","Kluender, Keith R.","Hearit, Lauren B.","Zheng, Wei","Cambron, David M.","Iseley, David T.","Fish, Megan L.","Roberts, Carson B.","Flynn, Robert W.","Luo, Xuyi","Salazar, Kara A.","Low-Nam, Shalini T.","Hsieh, Daniel","Hoffmann, Christoph M.","Ortiz, Vanessa V.","Newton, Kathryne A.","Sharma, Bhisham N.","Sivasubramaniam, Badhu Prashanthika","Jouin, Gwenael B.","Prechtel, Austin R.","Dillman, Brian G.","Ott, Carol A.","Schaber, James A.","Li, Husheng","Karle, Brian A.","Berger, Elizabeth A.","Nicholson, Jansen W.","Lamer, Maryann D.","Ma, Zhongjie","Zhou, Qi","Huggett, Christopher","Jensen, Clare L.","Meenan, Jordan R.","Kaufman, Chelsea N.","Anderson, Alexandra M.","Kashyap, Pratik","Lei, Hao-Ran","Marsh, Dawn G.","Zhang, Ruqi","Jean, Muni","Revankar, Shripad T.","Townsend, Jonathan R.","Adams, Thomas E.","Catlin, David W.","Bucher, Meredith A.","Liu, Pi Ju","Quellhorst, Hannah E.","Tan, Lin","Varma, Pranav P.","Karki, Tirtha","Leighton, Mary T.","Connolly, Gavin"]
-```
- The data is then refined depending on the use case.
+The data pertaining to course information, instructors, and departments was acquired by querrying two foreign api endpoints.\ 
+The queried endpoints belong to the following projects: <a href="https://www.boilergrades.com/" target="_blank">Boiler Grades</a> project and <a href="https://www.purdue.io/" target="_blank">Purdue.io</a>
+The course data at Purdue remains fairly constant over time but in the case that there are changes to course data, the two apis that we use account for those changes. 
  
- ## Miscellaneous
- To run our server locally, you will have to clone the repository to your machine. Navigate into the client directory and then run this command in your terminal:
- `npm install && npm start` 
- Then navigate to the server directory and run this:
- `node server.js`
+ ## Team Members
+ Paing Khant (pkhant@purdue.edu)
+ Thwandall Philemon (tphilemo@purdue.edu)
+ Haley Patel (pate1066@purdue.edu)
  
  ## Contact us
- If you have any issues, update the __issues__ tab in github or contact one of the devs of the project 
+ Feel free to contact us or create an <a href="https://github.com/paingp/boiler-reviews/issues">issue</a>
